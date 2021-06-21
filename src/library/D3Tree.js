@@ -1001,7 +1001,7 @@ class D3Tree {
     console.log("remove localstorage");
     localStorage.removeItem("data");
     //}
-    history.clean();
+    //history.clean();
     this.counterBalance = 1;
     this.inicializeData(true);
     this.redrawTree(true);
