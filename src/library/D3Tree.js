@@ -747,6 +747,12 @@ class D3Tree {
         return false;
       }
 
+      if (!this.balanceClicked.d.children && !d.children) {
+        this.msgAlertUser(error.cannotClickedTwoNonTerminal);
+        this.resetNodeSelected(true);
+        return false;
+      }
+
       if (
         d.depth === 0 ||
         d.depth === 1 ||
@@ -784,69 +790,14 @@ class D3Tree {
         return true;
       }
 
-      if (this.balanceClicked.d.data.idBalance > 0) {
-        this.msgAlertUser(error.firstClickCannotBeBalance);
-        this.resetNodeSelected(true);
-        return false;
+      if(d.data.idBalance === 0 && this.balanceClicked.d.data.idBalance > 0){
+        d.data.idBalance = this.balanceClicked.d.data.idBalance;
+        this.resetNodeSelected();
+        return true;
       }
 
-      if (!this.balanceClicked.d.children) {
-        if (!d.children) {
-          this.msgAlertUser(error.mustHaveChildren);
-          //console.log("d value: " + d.data.value);
-          //console.log("d lastvalue: " + this.balanceClicked.d.data.value);
-          this.resetNodeSelected(true);
-          return false;
-        }
-
-        if (d.children && d.data.value !== this.balanceClicked.d.data.value) {
-          this.msgAlertUser(error.mustStartwithChildren);
-          this.resetNodeSelected(true);
-          return false;
-        }
-      } else {
-        if (!d.children) {
-          this.msgAlertUser(error.mixedMustBeDifferent);
-          this.resetNodeSelected(true);
-          return false;
-        }
-
-        if (d.data.value === this.balanceClicked.d.data.value) {
-          this.msgAlertUser(error.mixedMustBeDifferent);
-          this.resetNodeSelected(true);
-          return false;
-        }
-
-        const target = d.data.idBalance;
-        // Conta a quantidade de nós pais do balanço
-        descendants.forEach(d => {
-          if (
-            d.data.idBalance === target &&
-            d.children &&
-            d.children.length > 0
-          ) {
-            balanceFatherCounter += 1;
-          }
-        });
-
-        if (
-          d.data.value !== this.balanceClicked.d.data.value &&
-          d.data.idBalance > 0 &&
-          balanceFatherCounter >= 2
-        ) {
-          this.msgAlertUser(error.mixedMustBeDifferent);
-          this.resetNodeSelected(true);
-          return false;
-        }
-      }
-
-      if (
-        d.data.value !== this.balanceClicked.d.data.value &&
-        (d.children.length >= 2 || this.balanceClicked.d.children.length >= 2)
-      ) {
-        this.msgAlertUser(
-          error.cannotCreateMixBalanceWithFatherWithMore2Childrens
-        );
+      if (this.balanceClicked.d.children) {
+        this.msgAlertUser(error.cannotFirstClickedNonTerminal);
         this.resetNodeSelected(true);
         return false;
       }
@@ -929,27 +880,6 @@ class D3Tree {
       return false;
     }
 
-    //Não pode incluir novas arestas em nó pai de balanço misto
-    if (fatherNode.data.idBalance > 0 && fatherNode.children) {
-      let counterIn = 0;
-      let counterOut = 0;
-      descendants.forEach(d => {
-        if (d.data.idBalance === fatherNode.data.idBalance) {
-          if (d.data.value === nodesType.in) {
-            counterIn += 1;
-          } else {
-            counterOut += 1;
-          }
-        }
-      });
-
-      // Verifica se é balanço misto
-      if (counterIn >= 1 && counterOut >= 1) {
-        this.msgAlertUser(error.cannotAddNodeInMixedBalanceFather);
-        return false;
-      }
-    }
-
     return true;
   }
 
@@ -997,11 +927,8 @@ class D3Tree {
    */
   clean() {
     console.log("clean");
-    //if (localStorage.data) {
     console.log("remove localstorage");
     localStorage.removeItem("data");
-    //}
-    //history.clean();
     this.counterBalance = 1;
     this.inicializeData(true);
     this.redrawTree(true);
