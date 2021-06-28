@@ -1,34 +1,27 @@
-# Embrapa Flowchart
+# e-cow
 
+> Tomada de decisões relativas à reprodução de bovinos de corte.
 
-### Demonstration
-See [Demonstration of Project in Link](https://edition-tree-simulation-lastmelody.vercel.app/).
+## Build Setup
 
+``` bash
+# install dependencies
+npm install
 
-## Project setup
-```
-yarn install
-```
+# serve with hot reload at localhost:8080
+npm run dev
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+# build for production with minification
+npm run build
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+# build for production and view the bundle analyzer report
+npm run build --report
 
-### Run your tests
-```
-yarn run test
-```
+# run unit tests
+npm run unit
 
-### Lints and fixes files
-```
-yarn run lint
+# run all tests
+npm test
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

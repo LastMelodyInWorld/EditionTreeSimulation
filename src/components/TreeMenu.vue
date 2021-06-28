@@ -12,10 +12,10 @@
           :ripple="true"
         >
           <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon>{{item.icon}}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{ item.text }}</v-list-tile-title>
+            <v-list-tile-title>{{item.text}}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -29,10 +29,10 @@
           :ripple="true"
         >
           <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon>{{item.icon}}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{ item.text }}</v-list-tile-title>
+            <v-list-tile-title>{{item.text}}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -45,10 +45,10 @@
           :ripple="true"
         >
           <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon>{{item.icon}}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{ item.text }}</v-list-tile-title>
+            <v-list-tile-title>{{item.text}}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -65,17 +65,17 @@
 </template>
 
 <script>
-import { actionsType } from "../library/D3Tree";
+import { actionsType } from '../library/D3Tree'
 export default {
-  props: ["TypeOfActionSelectedNow", "mini"],
-  data() {
+  props: ['TypeOfActionSelectedNow'],
+  data () {
     return {
       /**
        * Variável boleana usada para controlar a abertura do menu
        * true(abre) - false(fecha)
        */
       drawer: false,
-      // mini: false,
+      mini: false,
       /**
        * Vetor usado para construir o submenu de Fluxos
        * {
@@ -86,23 +86,23 @@ export default {
        */
       menuFlow: [
         {
-          text: "Atributos",
-          icon: "library_books",
-          value: actionsType.edit
-        },
-        {
-          text: "Entrada",
-          icon: "arrow_upward",
+          text: 'Entrada',
+          icon: 'arrow_upward',
           value: actionsType.addIn
         },
         {
-          text: "Saída",
-          icon: "arrow_downward",
+          text: 'Saída',
+          icon: 'arrow_downward',
           value: actionsType.addOut
         },
         {
-          text: "Excluir",
-          icon: "close",
+          text: 'Atributos',
+          icon: 'library_books',
+          value: actionsType.edit
+        },
+        {
+          text: 'Excluir',
+          icon: 'close',
           value: actionsType.remove
         }
       ],
@@ -111,13 +111,13 @@ export default {
        */
       menuBalance: [
         {
-          text: "Adicionar",
-          icon: "trip_origin",
+          text: 'Adicionar',
+          icon: 'trip_origin',
           value: actionsType.addBalance
         },
         {
-          text: "Excluir",
-          icon: "cancel",
+          text: 'Excluir',
+          icon: 'cancel',
           value: actionsType.removeBalance
         }
       ],
@@ -125,33 +125,28 @@ export default {
        * Vetor usado para construir o submenu de Modelo
        */
       menuModel: [
+        // {
+        //   text: 'Desfazer',
+        //   icon: 'undo',
+        //   value: actionsType.undo
+        // },
+        // {
+        //   text: 'Refazer',
+        //   icon: 'redo',
+        //   value: actionsType.redo
+        // },
         {
-          text: "Desfazer",
-          icon: "undo",
-          value: actionsType.undo
-        },
-        {
-          text: "Refazer",
-          icon: "redo",
-          value: actionsType.redo
-        },
-        {
-          text: "Salvar",
-          icon: "save",
+          text: 'Salvar',
+          icon: 'save',
           value: actionsType.save
         },
         {
-          text: "Reset",
-          icon: "refresh",
+          text: 'Reset',
+          icon: 'refresh',
           value: actionsType.reset
-        },
-        {
-          text: "Configurações",
-          icon: "settings",
-          value: actionsType.config
         }
       ]
-    };
+    }
   },
   methods: {
     /**
@@ -164,8 +159,8 @@ export default {
      *  - Remove balanço
      *  - Editar propriedades do nó
      **/
-    setTypeOfClick(type) {
-      this.$emit("setTypeClickTree", type);
+    setTypeOfClick (type) {
+      this.$emit('setTypeClickTree', type)
     },
     /**
      * Emiti um evento que executa o tipo de comando selecionado no componente Tree
@@ -175,18 +170,18 @@ export default {
      *  - Salvar
      *  - Resetar
      **/
-    executeModelCommand(type) {
-      this.$emit("executeModelCommand", type);
+    executeModelCommand (type) {
+      this.$emit('executeModelCommand', type)
     },
     /**
      * Aplica a classe 'active' caso seja a opção selecionada no menu
      */
-    isActive(itemValue) {
-      if (this.TypeOfActionSelectedNow === itemValue) return "active";
-      else return "";
+    isActive (itemValue) {
+      if (this.TypeOfActionSelectedNow === itemValue) return 'active'
+      else return ''
     }
   }
-};
+}
 </script>
 
 <style>

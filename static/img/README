@@ -1,0 +1,10 @@
+
+To generate icons, use this both sites:
+
+https://app-manifest.firebaseapp.com/
+Option "Generate Icons" sending logo in 512x512. Result is files with mask "icon-XxY.png".
+
+https://realfavicongenerator.net/
+Option "Select your Favicon picture" sending logo in 512x512.
+Result is files with mask "android-chrome-XxY.png", "apple-touch-icon.png" and "favicon-XxY.png".
+Copy all to folder "/static/img/icons/".

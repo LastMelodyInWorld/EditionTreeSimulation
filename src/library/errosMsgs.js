@@ -1,28 +1,29 @@
 const error = {
-  cannotRemoveDefault: "Não é possível excluir os dois primeiros vértices.",
+  cannotRemoveDefault: 'Aresta definida por padrão e não pode ser removida!',
   cannotRemoveLastChild:
-    "Não é possível excluir o último filho de mesmo tipo enquanto houver outro de tipo oposto.",
-  cannotRemoveIfHaveChildrens: "Não é possível excluir vértice com filhos.",
-  cannotInclude: "Não é possível adicionar vértice na raiz.",
+    'O último filho de uma aresta de um tipo só pode ser excluído se não tiver nenhum filho do outro tipo!',
+  cannotRemoveIfHaveChildrens: 'Não pode remover aresta com filhos!',
+  cannotInclude: 'Não é possível incluir novas Arestas ao Vértice raiz!',
   mustIsEqualFather:
-    "O primeiro filho adicionado deve ser de mesmo tipo do pai.",
+    'A primeira aresta filha deve ter o tipo igual a aresta pai!',
+  cannotHaveChildren: 'Primeiro nó balanço não pode ter filhos',
+  mustHaveChildren: 'Segundo nó balanço deve ter filhos',
+  mustStartwithChildren: 'Balanço misto deve começar com nó não terminal',
+  mixedMustBeDifferent:
+    'Balanço que começa com nó não terminal deve ser misto e ter segundo nó não terminal de tipo contrário',
+  cannotStartBalanceWithBalance:
+    'O balanço deve sempre começar de um nó não balanço',
   cannotRemoveFatherBalanceBigger2:
-    "Não pode remover nó pai de um balanço composto por mais de 2 nós.",
+    'Não pode remover nó pai de um balanço composto por mais de 2 nós',
   cannotAddBalanceInDefaultNodes:
-    "Não é possível adicionar balanço aos dois primeiros vértices.",
+    'Não pode adicionar balanço em aresta definida por padrão',
   cannotHaveBalanceWithDifferentRessources:
-    "Não é possível adicionar balanço com recursos diferentes.",
-  mustRemoveBalanceBefore:
-    "Não é possível excluir vértice associado a balanço.",
+    'Não pode ter balanço com recursos diferentes',
+  mustRemoveBalanceBefore: 'Não pode remover nó antes de remover o balanço',
   cannotCreateBalanceIfIsAlready:
-    "Não é possível adicionar um vértice que já pertence ao balanço.",
-  isNotBalance: "Não é possível excluir balanço de vértice que não é balanço.",
-  cannotAddNodeInBalanceChildren:
-    "Não é possível adicionar vértice a terminal de balanço.",
-  cannotFirstClickedNonTerminal:
-    "Balanço tem que começar com terminal.",
-  cannotClickedTwoNonTerminal:
-    "Balanço não pode ser feito em dois nós terminais."
-};
+    'Não pode adicionar no balanço um nó que já pertence ao balanço',
+  firstClickCannotBeBalance:
+    'o primeiro clique do balanço só pode ser nó balanço em caso de balanço misto'
+}
 
-export default error;
+export default error

@@ -1,0 +1,20 @@
+{
+  "url": "http://localhost:8080",
+  "api": "http://localhost:8090/api",
+  "app": "pwa",
+  "token": "1bJ7IGtRvgopRPUyhQ4G2rv8uzBR3Z7lZSQ4InnyvtQmtnOGgZFMZiZfKA52la4R",
+  "analytics": "UA-124202509-7",
+  "tracking": {
+    "host": "https://bug.cnpgc.embrapa.br",
+    "key": "29858886d57072ffa2e7eb956e2a55ac"
+  },
+  "auth": {
+    "google": "440497164324-4a92m5iiggopdsmo3dvumc5ua99cr3ci.apps.googleusercontent.com",
+    "facebook": "905718359620131",
+    "twitter": "",
+    "instagram": "",
+    "linkedin": "",
+    "microsoft": ""
+  },
+  "support": "sac@embrapa.br"
+}

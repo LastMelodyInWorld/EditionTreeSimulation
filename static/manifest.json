@@ -1,0 +1,18 @@
+{"name" : "Mais Precoce",
+  "short_name" : "+Precoce",
+  "description" : "Tomada de decisões relativas à reprodução de bovinos de corte.",
+  "start_url" : "https://mais-precoce.precision.farm/",
+  "display" : "standalone",
+  "background_color" : "#d8d7d9",
+  "theme_color" : "#007A3D",
+  "orientation" : "any",
+  "icons" : [
+      {
+          "src": "https://mais-precoce.precision.farm/static/img/icons/android-chrome-192x192.png",
+          "sizes": "192x192"
+      },
+      {
+          "src": "https://mais-precoce.precision.farm/static/img/icons/android-chrome-512x512.png",
+          "sizes": "512x512"
+      }
+  ]}

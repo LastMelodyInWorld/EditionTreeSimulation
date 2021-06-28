@@ -44,20 +44,20 @@
 
 <script>
 export default {
-  props: ["modal", "optionSelect", "selectedNode"],
-  data() {
+  props: ['modal', 'optionSelect', 'selectedNode'],
+  data () {
     return {
       edit: {
-        node: "",
-        name: "",
-        description: "",
-        class: "",
-        resource: "",
+        node: '',
+        name: '',
+        description: '',
+        class: '',
+        resource: '',
         disableEdit: false,
-        duration: "",
-        factor: ""
+        duration: '',
+        factor: ''
       }
-    };
+    }
   },
   watch: {
     /**
@@ -65,46 +65,46 @@ export default {
      * quando o modal é aberto para edição e desabilita alguns campos caso
      * seja um nó do tipo balanço
      **/
-    modal(newValue) {
+    modal (newValue) {
       if (newValue === true) {
-        this.fillChangesInputsFromNode();
-        if (this.selectedNode.data.idBalance > 0) this.edit.disableEdit = true;
-      } else this.edit.disableEdit = false;
+        this.fillChangesInputsFromNode()
+        if (this.selectedNode.data.idBalance > 0) this.edit.disableEdit = true
+      } else this.edit.disableEdit = false
     }
   },
   methods: {
     /**
      * Atualiza os input com os valores do nó selecionado para edição
      **/
-    fillChangesInputsFromNode() {
-      this.edit.name = this.selectedNode.data.name;
-      this.edit.description = this.selectedNode.data.description;
-      this.edit.class = this.selectedNode.data.class;
-      this.edit.resource = this.selectedNode.data.resource;
-      this.edit.duration = this.selectedNode.data.duration;
-      this.edit.factor = this.selectedNode.data.factor;
+    fillChangesInputsFromNode () {
+      this.edit.name = this.selectedNode.data.name
+      this.edit.description = this.selectedNode.data.description
+      this.edit.class = this.selectedNode.data.class
+      this.edit.resource = this.selectedNode.data.resource
+      this.edit.duration = this.selectedNode.data.duration
+      this.edit.factor = this.selectedNode.data.factor
     },
 
     /**
      * Emiti um evento para o component Tree responsável por fechar o modal
      * e redesenhar a árvore em caso de cancelamento da operação
      **/
-    cancelChangeInNode() {
-      this.cleanChangeInputs();
-      this.$emit("confirmEditNode", true);
+    cancelChangeInNode () {
+      this.cleanChangeInputs()
+      this.$emit('confirmEditNode', true)
     },
 
     /**
      * Limpa os dados digitados nos inputs e selects
      **/
-    cleanChangeInputs() {
-      this.edit.name = "";
-      this.edit.description = "";
-      this.edit.class = "";
-      this.edit.resource = "";
-      this.edit.duration = "";
-      this.edit.factor = "";
-      this.edit.disableEdit = false;
+    cleanChangeInputs () {
+      this.edit.name = ''
+      this.edit.description = ''
+      this.edit.class = ''
+      this.edit.resource = ''
+      this.edit.duration = ''
+      this.edit.factor = ''
+      this.edit.disableEdit = false
     },
 
     /**
@@ -112,35 +112,25 @@ export default {
      * component Tree responsável por fechar o modal e redesenhar a árvore
      * salvando a modificação no histórico para poder ser desfeita
      **/
-    saveChangeInNode() {
-      this.saveChangesInput();
-      this.cleanChangeInputs();
-      this.$emit("confirmEditNode", false);
+    saveChangeInNode () {
+      this.saveChangesInput()
+      this.cleanChangeInputs()
+      this.$emit('confirmEditNode', false)
     },
 
     /**
      * Atualiza os valores do nó com os novos valores do input
      **/
-    saveChangesInput() {
-      this.selectedNode.data.name = this.edit.name;
-      this.selectedNode.data.description = this.edit.description;
-      this.selectedNode.data.class = this.edit.class;
-      this.selectedNode.data.resource = this.edit.resource;
-      this.selectedNode.data.duration = this.edit.duration;
-      this.selectedNode.data.factor = this.edit.factor;
-
-      // Busca o objeto recurso escolhido para pegar as propriedades
-      // unit e category com base na escolha do usuário
-      const resourceName = this.edit.resource;
-      const resourceData = this.optionSelect.resource.find(function(item) {
-        if (item.text === resourceName) return item;
-      });
-
-      this.selectedNode.data.unit = resourceData.unit;
-      this.selectedNode.data.category = resourceData.category;
+    saveChangesInput () {
+      this.selectedNode.data.name = this.edit.name
+      this.selectedNode.data.description = this.edit.description
+      this.selectedNode.data.class = this.edit.class
+      this.selectedNode.data.resource = this.edit.resource
+      this.selectedNode.data.duration = this.edit.duration
+      this.selectedNode.data.factor = this.edit.factor
     }
   }
-};
+}
 </script>
 
 <style>
