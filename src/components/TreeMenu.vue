@@ -12,10 +12,10 @@
           :ripple="true"
         >
           <v-list-tile-action>
-            <v-icon>{{item.icon}}</v-icon>
+            <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{item.text}}</v-list-tile-title>
+            <v-list-tile-title>{{ item.text }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -29,10 +29,10 @@
           :ripple="true"
         >
           <v-list-tile-action>
-            <v-icon>{{item.icon}}</v-icon>
+            <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{item.text}}</v-list-tile-title>
+            <v-list-tile-title>{{ item.text }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -45,10 +45,10 @@
           :ripple="true"
         >
           <v-list-tile-action>
-            <v-icon>{{item.icon}}</v-icon>
+            <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{item.text}}</v-list-tile-title>
+            <v-list-tile-title>{{ item.text }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -67,7 +67,7 @@
 <script>
 import { actionsType } from '../library/D3Tree'
 export default {
-  props: ['TypeOfActionSelectedNow'],
+  props: ['TypeOfActionSelectedNow', 'mini'],
   data () {
     return {
       /**
@@ -75,7 +75,7 @@ export default {
        * true(abre) - false(fecha)
        */
       drawer: false,
-      mini: false,
+      // mini: false,
       /**
        * Vetor usado para construir o submenu de Fluxos
        * {
@@ -86,6 +86,11 @@ export default {
        */
       menuFlow: [
         {
+          text: 'Atributos',
+          icon: 'library_books',
+          value: actionsType.edit
+        },
+        {
           text: 'Entrada',
           icon: 'arrow_upward',
           value: actionsType.addIn
@@ -94,11 +99,6 @@ export default {
           text: 'Saída',
           icon: 'arrow_downward',
           value: actionsType.addOut
-        },
-        {
-          text: 'Atributos',
-          icon: 'library_books',
-          value: actionsType.edit
         },
         {
           text: 'Excluir',
@@ -125,16 +125,16 @@ export default {
        * Vetor usado para construir o submenu de Modelo
        */
       menuModel: [
-        // {
-        //   text: 'Desfazer',
-        //   icon: 'undo',
-        //   value: actionsType.undo
-        // },
-        // {
-        //   text: 'Refazer',
-        //   icon: 'redo',
-        //   value: actionsType.redo
-        // },
+        {
+          text: 'Desfazer',
+          icon: 'undo',
+          value: actionsType.undo
+        },
+        {
+          text: 'Refazer',
+          icon: 'redo',
+          value: actionsType.redo
+        },
         {
           text: 'Salvar',
           icon: 'save',
@@ -144,6 +144,11 @@ export default {
           text: 'Reset',
           icon: 'refresh',
           value: actionsType.reset
+        },
+        {
+          text: 'Configurações',
+          icon: 'settings',
+          value: actionsType.config
         }
       ]
     }

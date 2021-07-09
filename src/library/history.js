@@ -1,33 +1,52 @@
 // Singleton to Stack to Manage History
 
-// const states = []
-// let currentStateIndex = 0
-// const limit = 15
+let states = []
+let currentStateIndex = 0
+const limit = 50
 
 const history = {
   saveState: function (obj) {
-    // Todo: Implementar essa função no futuro
+    if (currentStateIndex > limit) {
+      currentStateIndex -= 1
+      states.shift()
+    }
+
+    states.splice(currentStateIndex, states.length)
+    states.push(JSON.stringify(obj))
+    currentStateIndex = currentStateIndex + 1
   },
   canRedo: function () {
-    // Todo: Implementar essa função no futuro
+    if (currentStateIndex < states.length) {
+      return true
+    } else {
+      return false
+    }
   },
   redo: function () {
-    // Todo: Implementar essa função no futuro
+    if (currentStateIndex < states.length) currentStateIndex += 1
   },
   canUndo () {
-    // Todo: Implementar essa função no futuro
+    if (currentStateIndex > 1) {
+      return true
+    } else {
+      return false
+    }
   },
   undo: function () {
-    // Todo: Implementar essa função no futuro
+    if (currentStateIndex > 1) currentStateIndex -= 1
   },
   getState: function () {
-    // Todo: Implementar essa função no futuro
+    return JSON.parse(states[currentStateIndex - 1])
   },
   getAllStates: function () {
-    // Todo: Implementar essa função no futuro
+    return states
   },
   currentIndex: function () {
-    // Todo: Implementar essa função no futuro
+    return currentStateIndex
+  },
+  clean: function () {
+    states.splice(0, states.length)
+    currentStateIndex = 0
   }
 }
 

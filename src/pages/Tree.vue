@@ -2,6 +2,7 @@
   <v-app id="inspire">
     <TreeMenu
       :TypeOfActionSelectedNow="TypeOfActionSelectedNow"
+      :mini="mini"
       @setTypeClickTree="setTypeClickTree"
       @executeModelCommand="executeModelCommand"
     />
@@ -13,6 +14,8 @@
       @confirmEditNode="confirmEditNode"
     />
 
+    <TreeConfig :config="config" @executeModelCommand="executeModelCommand" />
+
     <v-content>
       <div class="fluxograma" ref="fluxograma"></div>
     </v-content>
@@ -20,13 +23,17 @@
 </template>
 
 <script>
+// import jsonExampleLoadFluxograma from '../jsons/jsonFluxograma.json'
+// import jsonExampleIgnoreSimulationData from '../jsons/jsonPlataforma.json'
+import jsonFernando from '../jsons/jsonFernando.json'
 import TreeMenu from '../components/TreeMenu'
 import TreeModal from '../components/TreeModal'
+import TreeConfig from '../components/TreeConfig'
 import D3TreeClass, { actionsType, nodesType } from '../library/D3Tree'
 const tree = new D3TreeClass()
 
 export default {
-  components: { TreeMenu, TreeModal },
+  components: { TreeMenu, TreeModal, TreeConfig },
   data () {
     return {
       optionSelect: {
@@ -37,7 +44,9 @@ export default {
       },
       selectedNode: null,
       modal: false,
-      TypeOfActionSelectedNow: actionsType.addIn
+      config: false,
+      mini: false,
+      TypeOfActionSelectedNow: actionsType.edit
     }
   },
   mounted: function () {
@@ -89,11 +98,13 @@ export default {
 
     /**
      * Evento acionado pelo componente treeMenu
-     * Seleciona o tipo de clique que será executado ao clicar no nó
+     * Seleciona o tipo de clique que será executado ao clicar no nó e remove
+     * qualquer nó selecionado anteriormente
      * @param type identifica o tipo de clique selecionado
      */
     setTypeClickTree (type) {
       this.TypeOfActionSelectedNow = type
+      tree.resetNodeSelected(true)
     },
 
     /**
@@ -101,7 +112,8 @@ export default {
      * Executa um comando de modificação na árvore (redo, undo, save, reset)
      * @param command identifica o tipo de commando executado
      */
-    executeModelCommand (command) {
+    executeModelCommand (command, param) {
+      console.log(`comando=${command} -> ${param}`)
       switch (command) {
         case actionsType.undo:
           tree.undo()
@@ -114,6 +126,21 @@ export default {
           break
         case actionsType.reset:
           this.removeTreeBackend()
+          break
+        case actionsType.config:
+          this.config = !this.config
+          break
+        case actionsType.mini:
+          this.mini = !this.mini
+          break
+        case actionsType.orientation:
+          tree.changeOrientationTree(param)
+          break
+        case actionsType.nodeh:
+          tree.changeNodeh(param)
+          break
+        case actionsType.nodew:
+          tree.changeNodew(param)
           break
       }
     },
@@ -134,44 +161,112 @@ export default {
      * modal e repassa essas informações para o component TreeModal via props
      */
     loadAtributesBackend () {
-      // TODO: Adicionar aqui no futuro código para pegar opções do backend
+      /*************************************************************************
+       * //TODO: Adicionar aqui no futuro código para carregar json do backend
+       ************************************************************************/
+      // const json = jsonExampleIgnoreSimulationData;
+      // const json = jsonExampleLoadFluxograma;
+      const json = jsonFernando
+      /************************************************************************/
 
-      this.optionSelect = {
-        class: [
-          { text: 'Sem Classe', color: 'white' },
-          { text: 'Classe 1', color: '#FFF9C4' },
-          { text: 'Classe 2', color: '#B3E5FC' },
-          { text: 'Classe 3', color: '#B39DDB' }
-        ],
-        resource: [
-          { text: 'Recurso 1' },
-          { text: 'Recurso 2' },
-          { text: 'Recurso 3' }
-        ],
-        duration: [
-          { text: 'Duração 1' },
-          { text: 'Duração 2' },
-          { text: 'Duração 3' }
-        ],
-        factor: [{ text: 'Fator 1' }, { text: 'Fator 2' }, { text: 'Fator 3' }]
+      /**
+       * Fornece para lib que constroi o fluxograma o json para alterar apenas simulationData
+       *
+       * 1 - Caso o JSON tenha o formato antigo da plataforma o simulationData é ignorado
+       * mas as opções de atributos são carregados do json e o fluxograma iniciara com
+       * o json carregado do localstorage, caso o localstorage esteja vazio será iniciado
+       * uma simulação padrão com os dois nós iniciais
+       * Exemplo de json -> jsonExampleIgnoreSimulationData
+       *
+       * 2 - Caso o JSON tenha o formato novo definido pela Fernando no documento de requisito
+       * conforme o algoritmo no topico de "Detalhamento do Processo do Menu Salvar" pg. 28
+       * na qual as chaves dos nós devem começam com os caracteres "d_" ou "s_" ou "b_".
+       * O fluxograma ira carregar os dados do simulationData e gerar fluxograma salvo.
+       * Exemplo de json -> jsonExampleLoadFluxograma
+       */
+      tree.setJsonFromPP(json)
+
+      // Carrega os dados do json para gerar os selecteds com as opções fornecidas
+      this.loadVectorFromJson(
+        json.simulationData.formulas.flows,
+        this.optionSelect.factor
+      )
+      this.loadVectorFromJson(
+        json.simulationData.formulas.nodes,
+        this.optionSelect.duration
+      )
+      this.loadClassFromJson(
+        json.simulationData.stagesHierarchy,
+        this.optionSelect.class
+      )
+      this.loadResourceFromJson(
+        json.simulationData.resources,
+        this.optionSelect.resource
+      )
+    },
+
+    /**
+     * Carrega as opções de fatores e duração do json recebido pela plataforma
+     */
+    loadVectorFromJson (from, to) {
+      from.forEach(element => {
+        to.push({
+          text: element
+        })
+      })
+      to.sort((a, b) => (a.text > b.text ? 1 : -1))
+    },
+
+    /**
+     * Carrega as opções de classes do json recebido pela plataforma
+     */
+    loadClassFromJson (from, to) {
+      for (let item in from) {
+        to.push({
+          color: from[item].color,
+          text: item
+        })
       }
+      to.sort((a, b) => (a.text > b.text ? 1 : -1))
+    },
+
+    /**
+     * Carrega as opções de recursos do json recebido pela plataforma
+     */
+    loadResourceFromJson (from, to) {
+      for (let item in from) {
+        to.push({
+          unit: from[item].unit,
+          category: from[item].category,
+          text: item
+        })
+      }
+      to.sort((a, b) => (a.text > b.text ? 1 : -1))
     },
 
     /**
      * Salva no backend da aplicação o estado atual árvore construida
      */
     saveTreeBackend () {
-      // TODO: Adicionar aqui no futuro código para salvar árvore no backend
+      /*************************************************************************
+       * //TODO: Adicionar aqui no futuro código para salvar árvore no backend
+       ************************************************************************/
+
       // Por enquanto esta apenas salvando no localstorage
       tree.save()
-      tree.generateJsonPP()
+
+      // Pega o json convertido no formato P+P para enviar para a plataforma
+      // const jsonPP = tree.generateJsonPP()
     },
 
     /**
      * Destroy no backend da aplicação o estado atual árvore construida
      */
     removeTreeBackend () {
-      // TODO: Adicionar aqui no futuro código para exluir árvore no backend
+      /*************************************************************************
+       * //TODO: Adicionar aqui no futuro código para exluir árvore no backend
+       ************************************************************************/
+
       // Por enquanto esta apenas removendo do localstorage
       tree.clean()
     }

@@ -128,6 +128,16 @@ export default {
       this.selectedNode.data.resource = this.edit.resource
       this.selectedNode.data.duration = this.edit.duration
       this.selectedNode.data.factor = this.edit.factor
+
+      // Busca o objeto recurso escolhido para pegar as propriedades
+      // unit e category com base na escolha do usuário
+      const resourceName = this.edit.resource
+      const resourceData = this.optionSelect.resource.find(function (item) {
+        if (item.text === resourceName) return item
+      })
+
+      this.selectedNode.data.unit = resourceData.unit
+      this.selectedNode.data.category = resourceData.category
     }
   }
 }
