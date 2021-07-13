@@ -23,7 +23,7 @@
 </template>
 
 <script>
-// import jsonExampleLoadFluxograma from '../jsons/jsonFluxograma.json'
+// import jsonFluxograma from '../jsons/jsonFluxograma.json'
 // import jsonExampleIgnoreSimulationData from '../jsons/jsonPlataforma.json'
 import jsonFernando from '../jsons/jsonFernando.json'
 import TreeMenu from '../components/TreeMenu'
@@ -164,8 +164,8 @@ export default {
       /*************************************************************************
        * //TODO: Adicionar aqui no futuro código para carregar json do backend
        ************************************************************************/
-      // const json = jsonExampleIgnoreSimulationData;
-      // const json = jsonExampleLoadFluxograma;
+      // const json = jsonExampleIgnoreSimulationData
+      // const json = jsonFluxograma
       const json = jsonFernando
       /************************************************************************/
 

@@ -21,6 +21,7 @@ export const actionsType = {
   mini: "mini",
   orientation: "orientation",
   nodeh: "nodeh",
+  changed: "changed",
   nodew: "nodew"
 }
 
@@ -115,6 +116,11 @@ class D3Tree {
    * Retorna um json com o estado atual da árvore
    */
   getJsonData() {
+    // const jsonAtual = JSON.stringify(this.data)
+    // console.log("##########################")
+    // console.log("json atual da arvore")
+    // console.log(jsonAtual)
+    // console.log("##########################")
     return JSON.stringify(this.data)
   }
 
@@ -123,6 +129,10 @@ class D3Tree {
    */
   setJsonFromPP(json) {
     this.json = json
+    console.log("##########################")
+    console.log("json recebido da plataforma")
+    console.log(json)
+    console.log("##########################")
   }
 
   /**
@@ -190,32 +200,67 @@ class D3Tree {
    * Prepara os dados utilizados para desenhar a árvore, caso tenha algo salvo
    * no localstorage esse dado sera carregado
    */
-  inicializeData(reset) {
-    this.data = {
-      name: "A1",
-      description: DEFAULT.description,
-      value: 1, //
-      class: DEFAULT.class,
-      resource: DEFAULT.resource,
-      unit: DEFAULT.unit,
-      category: DEFAULT.category,
-      duration: DEFAULT.duration,
-      factor: DEFAULT.factor,
-      children: [
-        {
-          name: "B1",
-          description: DEFAULT.description,
-          value: 1,
-          class: DEFAULT.class,
-          resource: DEFAULT.resource,
-          unit: DEFAULT.unit,
-          category: DEFAULT.category,
-          duration: DEFAULT.duration,
-          factor: DEFAULT.factor,
-          children: []
-        }
-      ]
+  inicializeData(reset, changed) {
+    console.log("###############")
+    console.log("changed here ->" + changed)
+    console.log("###############")
+    console.log("###############")
+    console.log("reset here ->" + reset)
+    console.log("###############")
+    if(changed === true){
+      this.data = {
+        name: "A1",
+        description: DEFAULT.description,
+        value: 1, // por default é entrada
+        class: DEFAULT.class,
+        resource: DEFAULT.resource,
+        unit: DEFAULT.unit,
+        category: DEFAULT.category,
+        duration: DEFAULT.duration,
+        factor: DEFAULT.factor,
+        children: [
+          {
+            name: "B1",
+            description: DEFAULT.description,
+            value: 1, // por default é entrada
+            class: DEFAULT.class,
+            resource: DEFAULT.resource,
+            unit: DEFAULT.unit,
+            category: DEFAULT.category,
+            duration: DEFAULT.duration,
+            factor: DEFAULT.factor,
+            children: []
+          }
+        ]
+      }
+    } else {
+      this.data = {
+        name: "A1",
+        description: DEFAULT.description,
+        value: 0, // por default é entrada
+        class: DEFAULT.class,
+        resource: DEFAULT.resource,
+        unit: DEFAULT.unit,
+        category: DEFAULT.category,
+        duration: DEFAULT.duration,
+        factor: DEFAULT.factor,
+        children: [
+          {
+            name: "B1",
+            description: DEFAULT.description,
+            value: 0, // por default é entrada
+            class: DEFAULT.class,
+            resource: DEFAULT.resource,
+            unit: DEFAULT.unit,
+            category: DEFAULT.category,
+            duration: DEFAULT.duration,
+            factor: DEFAULT.factor,
+            children: []
+          }
+        ]
+      }
     }
+
 
     if (reset === false && this.json.simulationData.graph.root[0] === "n") {
       console.log("Json novo")
@@ -311,6 +356,7 @@ class D3Tree {
     // console.log("==================")
     this.root = d3.hierarchy(this.data)
     treeLayout(this.root)
+    // Lembra que aqui chama para desenhar
     this.drawPath()
     this.drawNodes()
     this.drawBalances()
@@ -922,12 +968,18 @@ class D3Tree {
     }
   }
 
+  changed() {
+    this.counterBalance = 1
+    this.inicializeData(true, false)
+    this.redrawTree(true)
+  }
+
   /**
    * Remove os dados da árvore do localstorage e redesenha a árvore
    */
   clean() {
-    console.log("clean")
-    console.log("remove localstorage")
+    // console.log("clean")
+    // console.log("remove localstorage")
     localStorage.removeItem("data")
     this.counterBalance = 1
     this.inicializeData(true)

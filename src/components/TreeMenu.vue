@@ -131,6 +131,11 @@ export default {
           value: actionsType.undo
         },
         {
+          text: 'Mudar',
+          icon: 'swap_horiz',
+          value: actionsType.changed
+        },
+        {
           text: 'Refazer',
           icon: 'redo',
           value: actionsType.redo
