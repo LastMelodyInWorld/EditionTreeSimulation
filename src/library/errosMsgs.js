@@ -21,6 +21,8 @@ const error = {
     'Não é possível adicionar vértice a terminal de balanço.',
   cannotFirstClickedNonTerminal:
     'Balanço tem que começar com terminal.',
+  cannotchanged:
+    'não pode mudar o inicio da árvore quando tem nós adicionados',
   cannotClickedTwoNonTerminal:
     'Balanço não pode ser feito em dois nós terminais.'
 }

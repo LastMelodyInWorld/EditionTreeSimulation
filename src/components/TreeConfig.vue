@@ -37,6 +37,11 @@
       <v-card-actions>
         <v-btn @click="resetConfig">Resetar</v-btn>
         <v-btn @click="saveConfig">Salvar</v-btn>
+        <v-btn class="ma-2" 
+                outlined 
+                href="file.json"
+                @click="saveSubTree"
+                download>SalvarSubTree</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -99,6 +104,14 @@ export default {
      **/
     saveConfig () {
       this.$emit('executeModelCommand', actionsType.config)
+    },
+
+    /**
+     *
+     **/
+    saveSubTree () {
+      console.log('dentro de saveSubTree')
+      this.$emit(actionsType.saveSubTree)
     }
   }
 }

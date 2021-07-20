@@ -126,14 +126,19 @@ export default {
        */
       menuModel: [
         {
+          text: 'Produção',
+          icon: 'swap_horiz',
+          value: actionsType.changed1
+        },
+        {
+          text: 'Tratamento',
+          icon: 'swap_horiz',
+          value: actionsType.changed2
+        },
+        {
           text: 'Desfazer',
           icon: 'undo',
           value: actionsType.undo
-        },
-        {
-          text: 'Mudar',
-          icon: 'swap_horiz',
-          value: actionsType.changed
         },
         {
           text: 'Refazer',

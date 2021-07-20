@@ -121,6 +121,12 @@ export default {
         case actionsType.redo:
           tree.redo()
           break
+        case actionsType.changed1:
+          tree.producao()
+          break
+        case actionsType.changed2:
+          tree.tratamento()
+          break
         case actionsType.save:
           this.saveTreeBackend()
           break

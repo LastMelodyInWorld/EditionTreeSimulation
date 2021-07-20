@@ -31,7 +31,25 @@
             required
             :disabled="edit.disableEdit"
           />
-          <v-select :items="optionSelect.factor" label="Fator" v-model="edit.factor" required />
+          <v-select 
+            :items="optionSelect.factor" 
+            label="Fator" 
+            v-model="edit.factor" 
+            required 
+            :disabled="edit.disableEdit"
+          />
+          <v-select 
+            :items="none" 
+            label="SubTree Produção"  
+            required 
+            :disabled="edit.disableEdit"
+          />
+          <v-select 
+            :items="none" 
+            label="SubTree Tratamento"  
+            required 
+            :disabled="edit.disableEdit"
+          />
         </v-container>
       </v-card-text>
       <v-card-actions>

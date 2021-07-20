@@ -16,12 +16,14 @@ export const actionsType = {
   undo: "undo",
   redo: "redo",
   save: "save",
+  saveSubTree1: "saveSubTree1",
   reset: "reset",
   config: "config",
   mini: "mini",
   orientation: "orientation",
   nodeh: "nodeh",
-  changed: "changed",
+  changed1: "changed1",
+  changed2: "changed2",
   nodew: "nodew"
 }
 
@@ -207,7 +209,7 @@ class D3Tree {
     console.log("###############")
     console.log("reset here ->" + reset)
     console.log("###############")
-    if(changed === true){
+    if(changed){
       this.data = {
         name: "A1",
         description: DEFAULT.description,
@@ -957,6 +959,31 @@ class D3Tree {
   save() {
     this.resetNodeSelected(true)
     localStorage.data = JSON.stringify(this.data)
+    console.log("********************")
+    console.log(localStorage.data)
+    console.log("********************")
+  }
+
+  saveSubTree() {
+    // this.resetNodeSelected(true)
+    const jsonSubTree = JSON.stringify(this.data)
+    // function remover(chave, valor){
+    //  meuJSON = jsonSubTree.filter(function(this.data) {
+    //      return this.data[chave] != valor;
+    //  });
+    //  return meuJSON
+    // }
+    // console.log(remover("name", "A1"))
+    // delete 
+    // const splits = jsonSuvTree.split('[')
+    // console.log("*******************************")
+    // console.log(splits)
+    // console.log("*******************************")
+    // console.log("********************")
+    // console.log(jsonSubTree)
+    // console.log("********************")
+    window.localStorage.setItem('arr', jsonSubTree)
+    console.log(JSON.parse(window.localStorage.getItem('arr')))
   }
 
   /**
@@ -968,21 +995,23 @@ class D3Tree {
     }
   }
 
-  changed() {
-    this.counterBalance = 1
-    this.inicializeData(true, false)
-    this.redrawTree(true)
-  }
-
   /**
    * Remove os dados da árvore do localstorage e redesenha a árvore
    */
   clean() {
-    // console.log("clean")
-    // console.log("remove localstorage")
     localStorage.removeItem("data")
     this.counterBalance = 1
     this.inicializeData(true)
+    this.redrawTree(true)
+  }
+
+  producao() {
+    this.inicializeData(true, false)
+    this.redrawTree(true)
+  }
+
+  tratamento() {
+    this.inicializeData(true, true)
     this.redrawTree(true)
   }
 
