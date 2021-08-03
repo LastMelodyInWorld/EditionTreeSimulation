@@ -101,6 +101,26 @@ export default {
           value: actionsType.addOut
         },
         {
+          text: 'SS',
+          icon: 'add',
+          value: actionsType.addSS
+        },
+        {
+          text: 'SE',
+          icon: 'add',
+          value: actionsType.addSE
+        },
+        {
+          text: 'EE',
+          icon: 'add',
+          value: actionsType.addEE
+        },
+        {
+          text: 'ES',
+          icon: 'add',
+          value: actionsType.addES
+        },
+        {
           text: 'Excluir',
           icon: 'close',
           value: actionsType.remove
@@ -126,12 +146,12 @@ export default {
        */
       menuModel: [
         {
-          text: 'Produção',
+          text: 'Tratamento',
           icon: 'swap_horiz',
           value: actionsType.changed1
         },
         {
-          text: 'Tratamento',
+          text: 'Produção',
           icon: 'swap_horiz',
           value: actionsType.changed2
         },

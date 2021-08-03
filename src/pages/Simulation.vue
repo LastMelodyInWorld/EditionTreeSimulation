@@ -93,6 +93,39 @@
                   <v-btn class="ma-0" disabled icon slot="activator" v-if="s.isSystem === 1">
                     <v-icon color="grey lighten-1" dark>lock</v-icon>
                   </v-btn>
+                  <v-menu
+                    bottom
+                    left
+                    content-class="my-menu"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        class="ma-0"
+                        dark
+                        icon 
+                        slot="activator"
+                        v-if="s.isSystem === 0"
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                        <v-icon color="black">more_vert</v-icon>
+                      </v-btn>
+                    </template>
+
+                    <v-list>
+                      <v-list-item
+                        v-for="(item, i) in items"
+                        :key="i"
+                      >
+                        <v-list-item-icon>
+                          <v-icon v-text="item.icon"></v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                          <v-list-item-title v-text="item.text"></v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
                 </v-layout>
               </v-card-title>
               <v-card-text>
@@ -241,7 +274,10 @@ export default {
       },
       simulations: null,
       name: '',
-      type: ''
+      type: '',
+      items: [
+        { text: 'inventario', icon: 'inventory' }
+      ]
     }
   },
   beforeMount () {
@@ -595,3 +631,11 @@ export default {
 }
 </script>
 
+<style>
+.my-menu {
+  background-color: gray;
+  margin-top: 40px;
+  width: 100px; 
+  height: 130px;
+}
+</style>

@@ -1,0 +1,40 @@
+{
+    "children": [
+        {
+            "children": [],
+            "value": 1,
+            "idBalance": 0,
+            "name": "C1.1",
+            "description": "",
+            "class": "(nenhuma)",
+            "resource": "Bezerras desmamadas",
+            "unit": "cab",
+            "category": "BOVINOS",
+            "duration": "0",
+            "factor": "1"
+        },
+        {
+            "children": [],
+            "value": 1,
+            "idBalance": 0,
+            "name": "C1.2",
+            "description": "",
+            "class": "(nenhuma)",
+            "resource": "Bezerras desmamadas",
+            "unit": "cab",
+            "category": "BOVINOS",
+            "duration": "0",
+            "factor": "1"
+        }
+    ],
+    "value": 1,
+    "idBalance": 0,
+    "name": "C1",
+    "description": "",
+    "class": "(nenhuma)",
+    "resource": "Bezerras desmamadas",
+    "unit": "cab",
+    "category": "BOVINOS",
+    "duration": "0",
+    "factor": "1"
+}

@@ -38,11 +38,9 @@
             required 
             :disabled="edit.disableEdit"
           />
-          <v-select 
-            :items="none" 
-            label="SubTree Produção"  
-            required 
-            :disabled="edit.disableEdit"
+          <v-select
+            :items="items"
+            label="SubTree Produção" 
           />
           <v-select 
             :items="none" 
@@ -62,7 +60,7 @@
 
 <script>
 export default {
-  props: ['modal', 'optionSelect', 'selectedNode'],
+  props: ['modal', 'optionSelect', 'selectedNode', 'tree'],
   data () {
     return {
       edit: {
@@ -74,7 +72,8 @@ export default {
         disableEdit: false,
         duration: '',
         factor: ''
-      }
+      },
+      items: ['subTreeA', 'subTreeB', 'subTreeC']
     }
   },
   watch: {
@@ -134,6 +133,7 @@ export default {
       this.saveChangesInput()
       this.cleanChangeInputs()
       this.$emit('confirmEditNode', false)
+      this.copiSubTree()
     },
 
     /**
@@ -156,6 +156,12 @@ export default {
 
       this.selectedNode.data.unit = resourceData.unit
       this.selectedNode.data.category = resourceData.category
+    },
+
+    // copia a subtree para o nó atual
+    copiSubTree () {
+      // passa como parametro o nó selecionado atual e a subarvore selecionada
+      // copiarSubTree(this.selectedNode, this.items)
     }
   }
 }

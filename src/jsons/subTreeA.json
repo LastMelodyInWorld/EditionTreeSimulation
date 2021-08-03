@@ -1,0 +1,66 @@
+{
+    "name": "A1",
+    "description": "",
+    "value": 0,
+    "class": "(nenhuma)",
+    "resource": "Bezerras desmamadas",
+    "unit": "cab",
+    "category": "BOVINOS",
+    "duration": "0",
+    "factor": "1",
+    "children": [
+        {
+            "name": "B1",
+            "description": "",
+            "value": 0,
+            "class": "(nenhuma)",
+            "resource": "Bezerras desmamadas",
+            "unit": "cab",
+            "category": "BOVINOS",
+            "duration": "0",
+            "factor": "1",
+            "children": [
+                {
+                    "children": [
+                        {
+                            "children": [],
+                            "value": 0,
+                            "idBalance": 0,
+                            "name": "F1.1",
+                            "description": "",
+                            "class": "(nenhuma)",
+                            "resource": "Bezerras desmamadas",
+                            "unit": "cab",
+                            "category": "BOVINOS",
+                            "duration": "0",
+                            "factor": "1"
+                        },
+                        {
+                            "children": [],
+                            "value": 0,
+                            "idBalance": 0,
+                            "name": "F1.2",
+                            "description": "",
+                            "class": "(nenhuma)",
+                            "resource": "Bezerras desmamadas",
+                            "unit": "cab",
+                            "category": "BOVINOS",
+                            "duration": "0",
+                            "factor": "1"
+                        }
+                    ],
+                    "value": 0,
+                    "idBalance": 0,
+                    "name": "F1",
+                    "description": "",
+                    "class": "(nenhuma)",
+                    "resource": "Bezerras desmamadas",
+                    "unit": "cab",
+                    "category": "BOVINOS",
+                    "duration": "0",
+                    "factor": "1"
+                }
+            ]
+        }
+    ]
+}

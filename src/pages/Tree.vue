@@ -71,9 +71,31 @@ export default {
     handleOnclickFunction (selected, index) {
       switch (this.TypeOfActionSelectedNow) {
         case actionsType.addIn:
+          // console.log(nodesType.out)
+          // console.log(nodesType.in)
           tree.addChildrenNode(selected, index, nodesType.in)
           break
         case actionsType.addOut:
+          tree.addChildrenNode(selected, index, nodesType.out)
+          break
+        case actionsType.addSS:
+          tree.addChildrenNode(selected, index, nodesType.out)
+          tree.addChildrenNode(selected, index, nodesType.out)
+          break
+        case actionsType.addSE:
+          if (tree.addChildrenNode(selected, index, nodesType.out) === false) {
+            break
+          }
+          tree.addChildrenNode(selected, index, nodesType.in)
+          break
+        case actionsType.addEE:
+          tree.addChildrenNode(selected, index, nodesType.in)
+          tree.addChildrenNode(selected, index, nodesType.in)
+          break
+        case actionsType.addES:
+          if (tree.addChildrenNode(selected, index, nodesType.in) === false) {
+            break
+          }
           tree.addChildrenNode(selected, index, nodesType.out)
           break
         case actionsType.remove:
